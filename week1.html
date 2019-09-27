@@ -33,8 +33,9 @@
     }
 </style>
 
-<h2>You need to guess from 1 to 20</h2>
-<p id="history"></p>
+<h2>You need to guess the number from 1 to 20</h2>
+<p id="historyOfResult"></p>
+<p id="historyGuess"></p>
 <span id="notification"></span><br>
 <input type="number" id="number" />
 <div>
@@ -45,32 +46,39 @@
 
 <script>
     let notification = document.getElementById("notification");
-    let number = document.getElementById("number");
-    let history = document.getElementById("history");
+    let historyOfResult = document.getElementById("historyOfResult");
+    let historyGuess = document.getElementById("historyGuess");
     var btn = document.getElementById("btn");
+    let numberGuess = document.getElementById("number");
     let his = [];
+    let hisGuess = [];
     function confirm(){
         let ran = Math.floor(Math.random() * 20);
-        his.push(ran);
-        history.innerHTML = 'History: ' + his;
+        let number = numberGuess.value;
         if(his.length >= 10){
             btn.disabled = true;
             notification.innerHTML = "You have reached the end of the game. Please click 'Reset' to continue";
             notification.className ='done';
             return;
         }
-        if(number.value == null || number.value == undefined || number.value == ''){
-            alert("Please enter a number");
+        if(number == null || number == ''){
+            alert("Please enter a number.");
+            return;
         }else{
-            if(number.value == ran){
-                notification.innerHTML = "You win!!!Please click 'Reset' to continue";
+            his.push(ran);
+            hisGuess.push(number);
+            historyOfResult.innerHTML = 'History result: ' + his;
+            historyGuess.innerHTML = 'History guess: ' + hisGuess;
+            let count = 10 - his.length;
+            if(number == ran){
+                notification.innerHTML = "Congratulations! You guessed correctly.<br> Please click 'Reset' to continue with new game";
                 btn.disabled = true;
                 notification.className ='success';
-            }else if(number.value > ran){
-                notification.innerHTML = "Your number guessed bigger!!!";
+            }else if(number > ran){
+                notification.innerHTML = "Sorry your guess is high, guess lower. You have " + count + " guesses left";
                 notification.className ='error';
             }else{
-                notification.innerHTML = "Your number guessed smaller!!!";
+                notification.innerHTML = "Sorry your guess is too low, guess higher.  You have " + count + " guesses left";
                 notification.className ='error';
             }
         }
@@ -78,10 +86,13 @@
     }
     function reset(){
         his = [];
-        history.innerHTML = his;
+        hisGuess = [];
+        numberGuess.value = '';
+        historyOfResult.innerHTML = his;
+        historyGuess.innerHTML = hisGuess;
         btn.disabled = false;
         notification.innerHTML = "";
-        notification.className ='done';
+        notification.className = 'done';
     }
 
 </script>
