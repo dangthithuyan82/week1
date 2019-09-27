@@ -62,7 +62,10 @@
             return;
         }
         if(number == null || number == ''){
-            alert("Please enter a number.");
+            alert("Please enter the number.");
+            return;
+        }else if(number < 0 || number > 20){
+            alert("Please enter the number from 0 to 20");
             return;
         }else{
             his.push(ran);
