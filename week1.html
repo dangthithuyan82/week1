@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<style>
+    .success{
+        background: green;
+    }
+    .error{
+        background: red;
+    }
+    .done{
+        background: white;
+    }
+    h2{
+        color: green;
+    }
+    body{
+        text-align: center;
+        align-content: center;
+    }
+    #number{
+        padding: 10px;
+        width: 280px;
+        margin-bottom: 10px;
+    }
+    button{
+        padding: 10px;
+        background: #007bff;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        width: 100px;
+    }
+</style>
+
+<h2>You need to guess from 1 to 20</h2>
+<p id="history"></p>
+<span id="notification"></span><br>
+<input type="number" id="number" />
+<div>
+    <button type="button" onclick="confirm()" id="btn">Start</button>
+    <button type="button" onclick="reset()" id="btn">Reset</button>
+</div>
+
+
+<script>
+    let notification = document.getElementById("notification");
+    let number = document.getElementById("number");
+    let history = document.getElementById("history");
+    var btn = document.getElementById("btn");
+    let his = [];
+    function confirm(){
+        let ran = Math.floor(Math.random() * 20);
+        his.push(ran);
+        history.innerHTML = 'History: ' + his;
+        if(his.length >= 10){
+            btn.disabled = true;
+            notification.innerHTML = "You have reached the end of the game. Please click 'Reset' to continue";
+            notification.className ='done';
+            return;
+        }
+        if(number.value == null || number.value == undefined || number.value == ''){
+            alert("Please enter a number");
+        }else{
+            if(number.value == ran){
+                notification.innerHTML = "You win!!!Please click 'Reset' to continue";
+                btn.disabled = true;
+                notification.className ='success';
+            }else if(number.value > ran){
+                notification.innerHTML = "Your number guessed bigger!!!";
+                notification.className ='error';
+            }else{
+                notification.innerHTML = "Your number guessed smaller!!!";
+                notification.className ='error';
+            }
+        }
+        
+    }
+    function reset(){
+        his = [];
+        history.innerHTML = his;
+        btn.disabled = false;
+        notification.innerHTML = "";
+        notification.className ='done';
+    }
+
+</script>
+</body>
+</html>
