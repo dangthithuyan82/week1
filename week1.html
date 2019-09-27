@@ -57,7 +57,7 @@
         let number = numberGuess.value;
         if(his.length >= 10){
             btn.disabled = true;
-            notification.innerHTML = "You have reached the end of the game. Please click 'Reset' to continue";
+            notification.innerHTML = "You have reached the end of the game. Please click 'Reset' play the new game";
             notification.className ='done';
             return;
         }
@@ -71,7 +71,7 @@
             historyGuess.innerHTML = 'History guess: ' + hisGuess;
             let count = 10 - his.length;
             if(number == ran){
-                notification.innerHTML = "Congratulations! You guessed correctly.<br> Please click 'Reset' to continue with new game";
+                notification.innerHTML = "Congratulations! You guessed correctly.<br> Please click 'Reset' play the new game";
                 btn.disabled = true;
                 notification.className ='success';
             }else if(number > ran){
